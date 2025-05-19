@@ -1,0 +1,1094 @@
+<html lang="en-GB">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Understanding Generative AI Capabilities in Everyday Image Editing Tasks</title>
+    <meta name="description"
+        content="Project page for the paper: Understanding Generative AI Capabilities in Everyday Image Editing Tasks.">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <meta name="robots" content="all">
+    <meta content="en_EN" property="og:locale">
+    <meta content="website" property="og:type">
+    <meta content="https://shikun.io/projects/clarity" property="og:url">
+    <meta content="Understanding Generative AI Capabilities in Everyday Image Editing Tasks" property="og:title">
+    <meta content="Project page for the paper: Understanding Generative AI Capabilities in Everyday Image Editing Tasks"
+        property="og:description">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@your_twitter_id">
+    <meta name="twitter:description"
+        content="Project page for the paper: Understanding Generative AI Capabilities in Everyday Image Editing Tasks">
+    <meta name="twitter:image:src" content="assets/figures/B25ECE26-7400-4612-AD3D-AC097C3856AA.png">
+
+    <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/main_free.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="clarity/clarity.css" />
+    <link rel="stylesheet" type="text/css" media="all" href="assets/stylesheets/latex_model_styles.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/styles/foundation.min.css">
+    <link href="assets/fontawesome-free-6.6.0-web/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/styles.css" />
+    <script defer src="https://cdn.jsdelivr.net/npm/img-comparison-slider@8/dist/index.js"></script>
+    <script src="assets/scripts/navbar.js"></script> <!-- Comment to remove table of content. -->
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            "HTML-CSS": {
+              scale: 95,
+              fonts: ["Gyre-Pagella"],
+              imageFont: null,
+              undefinedFamily: "'Arial Unicode MS', cmbright"
+            },
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                processEscapes: true
+              }
+          });
+    </script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <style>
+        .table-wrapper {
+            overflow-x: auto;
+            /* Add scrollbar only if needed */
+            max-width: 100%;
+        }
+
+        .table-wrapper table {
+            table-layout: fixed;
+            width: 100%;
+            /* Ensure table uses the available width */
+        }
+
+        .table-wrapper th,
+        .table-wrapper td {
+            word-break: break-word;
+            /* Allow long words to break and wrap */
+            white-space: normal !important;
+            /* Override any conflicting white-space properties */
+            font-size: 0.8rem;
+            /* Added to reduce font size */
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Title Page -->
+    <!-- Dark Theme Example: Change the background colour dark and change the following div "blog-title" into "blog-title white". -->
+    <div class="container blog" id="first-content" style="background-color: #E0E4E6;">
+        <!-- If you don't have a project cover: Change "blog-title" into "blog-title no-cover"  -->
+        <div class="blog-title">
+            <div class="blog-intro">
+                <div>
+                    <h1 class="title">Understanding Generative AI Capabilities in Everyday Image Editing Tasks</h1>
+                    <p class="author">
+                        Anonymous Authors
+                    </p>
+                    <p class="author" style="padding-top: 0px;">
+                        <!-- Affiliations can be added here -->
+                    </p>
+                    <p class="abstract">
+                        Generative AI (GenAI) holds significant promise for automating everyday image editing tasks,
+                        especially following the recent release of <a
+                            href="https://openai.com/index/introducing-4o-image-generation/"><span
+                                class="model-style">GPT-<span class="text-gpt-green">4o</span></span></a> on March 25,
+                        2025. However, what subjects do
+                        people most often want edited? What kinds of editing actions do they want to perform (e.g.,
+                        removing or stylizing the subject)? Do people prefer precise edits with predictable outcomes or
+                        highly creative ones? By understanding the characteristics of real-world requests and the
+                        corresponding edits made by freelance photo-editing wizards, can we draw lessons for improving
+                        AI-based editors and determine which types of requests can currently be handled successfully by
+                        AI editors? In this paper, we present a unique study addressing these questions by analyzing 83k
+                        requests from the past 12 years (2013–2025) on the <a
+                            href="https://www.reddit.com/r/PhotoshopRequest/">Reddit community</a>, which collected 305k
+                        PSR-wizard edits. According to human ratings, approximately only 33% of requests can be
+                        fulfilled by the best AI editors (including <a
+                            href="https://openai.com/index/introducing-4o-image-generation/"><span
+                                class="model-style">GPT-<span class="text-gpt-green">4o</span></span></a>, <a
+                            href="https://gemini.google/overview/image-generation/?hl=en"><span
+                                class="model-style">Gemini-<span class="text-gemini-blue">2.0</span>-Flash</span></a>,
+                        <a href="https://seededit.org/">SeedEdit</a>). Interestingly,
+                        AI editors perform worse on low-creativity requests that require precise editing than on more
+                        open-ended tasks. They often struggle to preserve the identity of people and animals, and
+                        frequently make non-requested touch-ups. On the other side of the table, VLM judges (e.g., <span
+                            class="model-style"><span style="color: black;">o</span><span
+                                class="text-gpt-green">1</span></span>)
+                        perform differently from human judges and may prefer AI edits more than human edits.
+                    </p>
+                    <!-- Using FontAwesome Pro -->
+                    <!-- <div class="info">
+                        <div>
+                            <a href="https://arxiv.org" class="button icon" style="background-color: rgba(255, 255, 255, 0.3)"> Paper <i class="far fa-book-open"></i></a> &nbsp;&nbsp; 
+                            <a href="https://github.com" class="button icon" style="background-color: rgba(255, 255, 255, 0.3)">Code <i class="far fa-code"></i></a>  &nbsp;&nbsp; 
+                            <a href="https://www.microsoft.com/en-gb/microsoft-365/powerpoint" class="button icon" style="background-color: rgba(255, 255, 255, 0.3);">Slides <i class="far fa-presentation"></i></a>  &nbsp;&nbsp; 
+                            <a href="https://huggingface.co/spaces" class="button icon" style="background-color: rgba(255, 255, 255, 0.3)">Demo <i class="fa-light fa-face-smiling-hands"></i></a>
+                        </div>
+                    </div> -->
+
+                    <!-- Using FontAwesome Free -->
+                    <div class="info">
+                        <div>
+                            <a href="https://arxiv.org" class="button icon"
+                                style="background-color: rgba(255, 255, 255, 0.2)"> Paper <i
+                                    class="fa-solid fa-book-open"></i></a> &nbsp;&nbsp;
+                            <a href="https://huggingface.co/collections/PSR/psr-6827bdeefff0ed2b7206f740"
+                                class="button icon" style="background-color: rgba(255, 255, 255, 0.2)">Dataset <i
+                                    class="fa-solid fa-database"></i></a> &nbsp;&nbsp;
+                            <!-- <a href="https://www.microsoft.com/en-gb/microsoft-365/powerpoint" class="button icon"
+                                style="background-color: rgba(255, 255, 255, 0.2);">Slides <i
+                                    class="fa-regular fa-file-powerpoint"></i></a> &nbsp;&nbsp; -->
+                            <a href="https://huggingface.co/spaces/PSRDataset/PSR-Battle-Results" class="button icon"
+                                style="background-color: rgba(255, 255, 255, 0.2)">Browse Results <i
+                                    class="fa-solid fa-laptop-code"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info">
+                    <p>preprint</p>
+                </div>
+            </div>
+
+            <div class="blog-cover">
+                <img class="foreground" src="assets/figures/B25ECE26-7400-4612-AD3D-AC097C3856AA.png">
+                <img class="background" src="assets/figures/B25ECE26-7400-4612-AD3D-AC097C3856AA.png">
+            </div>
+        </div>
+    </div>
+
+    <div class="container blog main first">
+        <h1>tldr</h1>
+        <p class="text">
+            We find that GenAI can satisfy 33.35% of everyday image editing requests, while 66.65% of the requests are
+            better
+            handled by human image editors. </p>
+    </div>
+
+    <div class="container blog main " id="blog-main">
+        <h1 id="sec:intro">Introduction</h1>
+
+        <p class="text">
+            GenAI for images has gained enormous research interest and created a 2023 market of
+            $300M, which is estimated to multiply.
+            Specifically, text-based image editing is an increasingly high-demand task, especially
+            after the recent <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span> and <span
+                class="model-style">Gemini-<span class="text-gemini-blue">2.0</span>-Flash</span> image
+            generators.
+            However, four important questions remain open:<br />
+
+        </p>
+
+        <p>
+            <strong>Q1:</strong> What are the <em>real</em> everyday image editing requests and needs of users?<br />
+            <strong>Q2:</strong> According to human judgment, what % of such requests can be satisfied by existing
+            AIs?<br />
+            <strong>Q3:</strong> What are the improvement areas for AI editors compared to human editors?<br />
+            <strong>Q4:</strong> Are vision language models (VLMs) judging AI-edited images similarly to human judges?
+        </p>
+
+        <p class="text">
+            Q1 and Q2 are unanswered partly because many prior datasets contain made-up requests written by either human
+            annotators or AIs based on the source image or the (source, target image) pair (see <a
+                href="#dataset_comparison_table">Table Dataset Comparison</a>).
+            Those request distributions may <em>not</em> reflect the actual editing needs of users as well as the
+            challenges posed by the real requests, which may have typos, distraction or ambiguity (e.g.,
+            &ldquo;<em>I&apos;d love to see how crazy this could get... Thank you in advance!!</em>&rdquo; in this <a
+                href="https://www.reddit.com/r/PhotoshopRequest/comments/c7f1pa/random_id_love_to_see_how_crazy_this_could_get/">post</a>;
+            <a href="#fig:teaser_container">Figure.1</a>).
+            On the other hand, some datasets feature images edited by AIs and therefore do not represent the real edits
+            by advanced
+            photo editors.
+        </p>
+
+        <p class="text">
+            We aim to answer these four questions by analyzing totalimagesize tuples of (source image, text request,
+            edited image) from the
+            <a href="https://www.reddit.com/r/PhotoshopRequest/">/r/PhotoshopRequest</a> (PSR) Reddit channel, which is
+            the <em>largest</em> public online community that shares diverse, everyday image-editing needs with
+            corresponding edits by PSR wizards (Footnote: Advanced image editors who are granted to handle paid editing
+            requests in this particular subreddit.).
+            PSR has 1.7M users and receives an average of 141 new requests per day (our statistics for 2025) with a peak
+            as high as 226 per day.
+        </p>
+
+        <p class="text">
+            To answer <strong>Q1</strong>, <strong>Q2</strong>, and <strong>Q3</strong>, our closed-loop study:
+            <strong>(a)</strong> analyzes 305k tuples, i.e., datasetsize <em>unique</em> requests &times; 3.67
+            human-edited images per request;
+            <strong>(b)</strong> sends all (request, source image) pairs to image-editing models to collect AI edits;
+            <strong>(c)</strong> performs a human study over a set of 328 requests (PSR-328) to collect over 4.5k
+            ratings to compare how 1,644 PSR-wizard edits fare against 2,296 AI edits on the same requests to identify
+            areas where AIs perform well and fall short.
+            Our work is the first to compare three state-of-the-art (SOTA): <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span></span>, <span class="model-style">Gemini-<span
+                    class="text-gemini-blue">2.0</span>-Flash</span>, and <span class="model-style">SeedEdit</span>, as
+            well as 46 other AI models on HuggingFace, for
+            a total of <strong>49</strong> AI editors.
+            Furthermore, to address <strong>Q4</strong>, we compare human ratings against those by <strong>3</strong>
+            SOTA vision-language models (VLMs): <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span></span>, <span class="model-style">o<span
+                    class="text-gpt-green">1</span></span>, and <span class="model-style">Gemini-<span
+                    class="text-gemini-blue">2.0</span>-Flash-Thinking</span>.
+            Our main findings are as follows:
+        </p>
+
+        <ul class="text">
+            <li>66% of the time, human judges still <em>prefer human</em>, PSR-wizard edits over AI edits.</li>
+            <li>While SOTA VLMs are excellent at regular visual tasks, on image-edit judgment, VLMs can
+                be extremely biased, e.g., <span class="model-style">o<span class="text-headerblue">1</span></span>
+                prefers <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span> edits 85% of the
+                time, which is in contrast to human
+                judgment.</li>
+            <li>AIs often add additional touches, which improve the aesthetic of the image and sometimes win votes even
+                when such touches are not requested by users.</li>
+            <li>GenAI can satisfy 33.35% of the requests, while 66.65% of the existing requests, PSR wizards still
+                outperform GenAI models.</li>
+        </ul>
+
+
+    </div>
+
+
+    <div class="container blog  extra-large gray">
+        <img src="assets/figures/teaser_human.svg" id="fig:teaser_container">
+        <p class="caption">
+            <strong>Figure. 1</strong>: We propose PSR—the largest dataset to date of real-world image-editing requests
+            and
+            their
+            corresponding human-made edits.
+            PSR enables the community (and our work) to identify the types of requests that can be automated using
+            existing AIs and those that need improvement.
+            PSR is the first dataset to tag all requests with WordNet subjects, real-world editing actions, and
+            creativity levels.
+        </p>
+    </div>
+
+
+
+
+    <div class="container blog extra-large gray" id="dataset_comparison_table">
+        <h1>Dataset Comparison</h1>
+        <div class="table-wrapper">
+
+            <table border="1" cellpadding="4" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>Dataset</th>
+                        <th>Year</th>
+                        <th>No. of Requests</th>
+                        <th>No. of Edits</th>
+                        <th>Source Image</th>
+                        <th>Edit Generator</th>
+                        <th>Request Writer</th>
+                        <th>Requests Based On</th>
+                        <th>Creativity Low</th>
+                        <th>Creativity Med</th>
+                        <th>Creativity High</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td>IER</td>
+                        <td>2019</td>
+                        <td>4k</td>
+                        <td><span style="color:gray;">4k</span></td>
+                        <td>reddit</td>
+                        <td>human &#10003;</td>
+                        <td>human</td>
+                        <td>reddit &#10003;</td>
+                        <td>78%</td>
+                        <td>15%</td>
+                        <td>7%</td>
+                    </tr>
+
+                    <tr>
+                        <td>GIER</td>
+                        <td>2020</td>
+                        <td>6k</td>
+                        <td><span style="color:gray;">6k</span></td>
+                        <td>reddit</td>
+                        <td>human &#10003;</td>
+                        <td>human</td>
+                        <td>reddit &#10003;</td>
+                        <td>63%</td>
+                        <td>34%</td>
+                        <td>3%</td>
+                    </tr>
+
+                    <tr>
+                        <td>MA5k-Req</td>
+                        <td>2021</td>
+                        <td>24k</td>
+                        <td><span style="color:gray;">24k</span></td>
+                        <td>real</td>
+                        <td>Ps</td>
+                        <td>Amazon MT</td>
+                        <td>image pairs</td>
+                        <td>100%</td>
+                        <td>0%</td>
+                        <td>0%</td>
+                    </tr>
+
+                    <tr>
+                        <td>InstructPix2Pix</td>
+                        <td>2023</td>
+                        <td>454k</td>
+                        <td><span style="color:gray;">454k</span></td>
+                        <td>SD</td>
+                        <td>SD</td>
+                        <td>GPT-3</td>
+                        <td>image pairs</td>
+                        <td>12%</td>
+                        <td>44%</td>
+                        <td>42%</td>
+                    </tr>
+
+                    <tr>
+                        <td>MagicBrush</td>
+                        <td>2023</td>
+                        <td>10k</td>
+                        <td><span style="color:gray;">10k</span></td>
+                        <td>MS COCO</td>
+                        <td>DALL-E 2</td>
+                        <td>Amazon MT</td>
+                        <td>source image</td>
+                        <td>62%</td>
+                        <td>25%</td>
+                        <td>12%</td>
+                    </tr>
+
+                    <tr>
+                        <td>HIVE</td>
+                        <td>2024</td>
+                        <td>1.1M</td>
+                        <td><span style="color:gray;">1.1M</span></td>
+                        <td>SD</td>
+                        <td>SD</td>
+                        <td>BLIP</td>
+                        <td>image pairs</td>
+                        <td>48%</td>
+                        <td>30%</td>
+                        <td>22%</td>
+                    </tr>
+
+                    <tr>
+                        <td>EmuEdit</td>
+                        <td>2024</td>
+                        <td>10M</td>
+                        <td><span style="color:gray;">10M</span></td>
+                        <td>Emu</td>
+                        <td>Emu</td>
+                        <td>Llama 2</td>
+                        <td>source image & task</td>
+                        <td>54%</td>
+                        <td>20%</td>
+                        <td>26%</td>
+                    </tr>
+
+                    <tr>
+                        <td>AURORA</td>
+                        <td>2025</td>
+                        <td>280k</td>
+                        <td><span style="color:gray;">280k</span></td>
+                        <td>mixed</td>
+                        <td>mixed</td>
+                        <td>GPT-4o</td>
+                        <td>image pairs</td>
+                        <td>96%</td>
+                        <td>4%</td>
+                        <td>0%</td>
+                    </tr>
+
+                    <tr>
+                        <td>UltraEdit</td>
+                        <td>2025</td>
+                        <td>4M</td>
+                        <td><span style="color:gray;">4M</span></td>
+                        <td>MS COCO</td>
+                        <td>SD</td>
+                        <td>GPT-4o, human</td>
+                        <td>source image</td>
+                        <td>43%</td>
+                        <td>21%</td>
+                        <td>36%</td>
+                    </tr>
+
+                    <tr>
+                        <td>RealEdit</td>
+                        <td>2025</td>
+                        <td>57k</td>
+                        <td>94k</td>
+                        <td>reddit</td>
+                        <td>human &#10003;</td>
+                        <td>human</td>
+                        <td>reddit &#10003;</td>
+                        <td>58%</td>
+                        <td>36%</td>
+                        <td>6%</td>
+                    </tr>
+
+                    <tr>
+                        <td><strong>PSR (ours)</strong></td>
+                        <td>2025</td>
+                        <td>83k</td>
+                        <td>305k</td>
+                        <td>reddit</td>
+                        <td>human &#10003;</td>
+                        <td>human</td>
+                        <td>reddit &#10003;</td>
+                        <td>56%</td>
+                        <td>28%</td>
+                        <td>16%</td>
+                    </tr>
+
+                    <tr>
+                        <td>PSR-328 (ours)</td>
+                        <td>2025</td>
+                        <td>328</td>
+                        <td>3.9k</td>
+                        <td>reddit</td>
+                        <td>human, AIs &#10003;</td>
+                        <td>human</td>
+                        <td>reddit &#10003;</td>
+                        <td>33%</td>
+                        <td>33%</td>
+                        <td>33%</td>
+                    </tr>
+                </tbody>
+            </table>
+
+
+        </div>
+        </p>
+    </div>
+
+
+    <div class="container blog main">
+        <h1 id="sec:data_creation_section">PSR Dataset Construction</h1>
+
+        <h2 id="sec:data_collection">Data Collection</h2>
+        <p class="text">
+            We source our dataset from Reddit's <a
+                href="https://www.reddit.com/r/PhotoshopRequest/">/r/PhotoshopRequest</a>
+            community (2013–early 2025). Historical data (up to Nov 2022) comes from PushShift, while recent data
+            (Oct 2024–Feb 2025) is collected daily via a custom crawler, as PushShift lacks data after Nov 2022.
+        </p>
+
+        <h2 id="sec:data_taxonomoy">Taxonomy Development</h2>
+        <p class="text">
+            We present a taxonomy capturing the spectrum of image editing requests across three dimensions:
+            <em>subject</em>, <em>action verb</em>, and <em>creativity level</em>. The subject identifies the element
+            modified, the action verb specifies the modification, and the creativity level distinguishes routine tasks
+            from
+            those allowing multiple, open-ended interpretations.
+            This framework enables precise analysis of automated image editing tasks and highlights that even routine
+            edits,
+            such as object <span class="action-style">removal</span>, vary significantly depending on whether the
+            subject is
+            a person, animal, or object.
+            While low-creativity tasks often suit standard automation tools, high-creativity tasks (<a
+                href="#fig:ai_wins_and_failures">see Figure 2</a>) demand models with greater flexibility.
+        </p>
+
+        <h3>Subject:</h3>
+        <p class="text">
+            The subject of an image editing request is the specific element being modified—e.g., in a request to remove
+            a
+            person, the subject is the person. Subjects may include objects, persons, or the entire image. To
+            systematically
+            classify subjects from user instructions, we leverage WordNet's taxonomy.
+            We first extract subjects from raw instructions, then match each to the nearest synset (semantic category)
+            in
+            WordNet's structured lexical database, providing standardized classification and reduced ambiguity.
+        </p>
+    </div>
+
+
+    <div class="container blog extra-large gray" id="tab:image_editing_action_verbs">
+        <h1>Image Editing Action Verbs</h1>
+
+        <div class="table-wrapper">
+            <table class="action-verbs">
+                <thead>
+                    <tr>
+                        <th>Action</th>
+                        <th>Description&nbsp;and&nbsp;Sample&nbsp;Request</th>
+                        <th>Action</th>
+                        <th>Description&nbsp;and&nbsp;Sample&nbsp;Request</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr>
+                        <td><span class="action-style">add</span></td>
+                        <td>Insert new elements, objects, text, or effects. <em>e.g. “Add a copyright watermark to the
+                                bottom&nbsp;right.”</em></td>
+                        <td><span class="action-style">adjust</span></td>
+                        <td>Modify properties like tones, contrast, and saturation. <em>e.g. “Increase saturation a bit
+                                on
+                                the elephants.”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">apply</span></td>
+                        <td>Add filters, styles, or effects. <em>e.g. “Apply a vintage film effect.”</em></td>
+                        <td><span class="action-style">clone</span></td>
+                        <td>Duplicate elements inside the image. <em>e.g. “Use cloning tool to blend grass over dirt
+                                patches.”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">crop</span></td>
+                        <td>Trim edges for a smaller image. <em>e.g. “Crop to square format for social media.”</em></td>
+                        <td><span class="action-style">delete</span></td>
+                        <td>Remove elements, objects, or imperfections. <em>e.g. “Remove the jacket hanging from the
+                                girl's
+                                side.”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">replace</span></td>
+                        <td>Substitute objects or text. <em>e.g. “Please change the pamphlet into a dictionary.”</em>
+                        </td>
+                        <td><span class="action-style">transform</span></td>
+                        <td>Flip, scale, rotate, or skew elements. <em>e.g. “Fix the perspective of the building.”</em>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">move</span></td>
+                        <td>Reposition elements while keeping the rest unchanged. <em>e.g. “Shift the logo
+                                20&nbsp;pixels
+                                up.”</em></td>
+                        <td><span class="action-style">merge</span></td>
+                        <td>Combine elements or effects. <em>e.g. “Create a panorama from these shots.”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">super-resolution</span></td>
+                        <td>Increase resolution for clearer details. <em>e.g. “Can someone upscale this image to&nbsp;4K
+                                resolution?”</em></td>
+                        <td><span class="action-style">re-color</span></td>
+                        <td>Change the color of an element, object, or text. <em>e.g. “Can someone change the dog's fur
+                                to
+                                black?”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">relight</span></td>
+                        <td>Adjust lighting conditions. <em>e.g. “Can someone make lighting better / remove
+                                shadows?”</em>
+                        </td>
+                        <td><span class="action-style">zoom</span></td>
+                        <td>Change scale to focus or zoom out. <em>e.g. “Zoom in on the man.”</em></td>
+                    </tr>
+
+                    <tr>
+                        <td><span class="action-style">specialized</span></td>
+                        <td>Advanced or composite editing tasks. <em>e.g. “Can someone vectorize this logo without
+                                background?”</em></td>
+                        <td colspan="2"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="container blog main">
+        <h3>Action Verb:</h3>
+        <p class="text">
+            Users often describe their editing intentions in vague terms i.e., "<em>Make this look better</em>" instead
+            of
+            the more technically precise phrasing such as "<em>Improve the lighting to make the subject stand out</em>".
+            To
+            properly categorize user intent, we develop a diverse list of <span id="numberOfAction">15</span> action
+            verbs that cover various editing
+            actions.
+        </p>
+        <p class="text">
+            We find that previous efforts to create action verb taxonomies are tied to specific, low-level tools in
+            popular image editing
+            software
+            tools that do not communicate the high-level user intent and also do not contain specific edit actions like
+            <span class="action-style">super-resolution</span>. This limitation motivated us to develop our own taxonomy
+            to
+            ensure comprehensive coverage of modern image editing techniques.
+        </p>
+        <p class="text">
+            To develop our taxonomy, we feed a large random subset of the edit requests into <span
+                class="model-style">GPT-<span class="text-gpt-green">4o</span>-mini</span> and prompt the model to
+            summarize common
+            editing actions.
+            Additionally, we consult image editing experts in the field to refine our list of actions to accurately
+            reflect
+            image-synthesis tasks in computer vision.
+            <a href="#tab:image_editing_action_verbs">Table Action Verbs</a> presents the final list of action verbs.
+        </p>
+
+        <h3>Creativity Level:</h3>
+        <p class="text">
+            We categorize editing requests into three levels of creativity freedom involved in the editing process and
+            the
+            potential variation in the final outcome.
+        </p>
+        <ol style="list-style-type: decimal; margin-left: 20px;" class="text">
+            <li><strong>Low Creativity</strong> edits require minimal creative input and produce highly predictable
+                results
+                such as "<em>remove a person</em>" or "<em>erase an object</em>".</li>
+            <li><strong>Medium Creativity</strong> requests allow for some variation but still follow a structured
+                approach,
+                for example, "<em>change the background</em>" or "<em>adjust lighting to look cinematic</em>".</li>
+            <li><strong>High Creativity</strong> requests demand significant creative interpretation and can lead to
+                widely
+                different outcomes depending on the editor's vision, for instance, "<em>make this image look
+                    magical</em>"
+                or "<em>transform this into a fantasy scene</em>".</li>
+        </ol>
+        <p class="text">
+            This creativity classification helps differentiate between objective, technical edits and imaginative,
+            open-ended transformations, ensuring that automated and human editing processes can be tailored accordingly.
+            While creativity level is not a traditional dataset metric, we feel that it is an underused tool as a way to
+            measure model accuracy. When evaluating an image editing model, it is desirable to see pixel-level precision
+            on
+            low creativity edits involving real-world objects. However, high creativity edits, such as (f) in <a
+                href="#fig:ai_wins_and_failures">Figure 2-f</a>, may not need this level of realistic precision.
+            Examples
+            of other levels of creativity can be found in <a href="#fig:ai_wins_and_failures">Figure 2</a> as well.
+        </p>
+
+        <h2 id="sec:dataset_annotation_process">Dataset Annotation Process</h2>
+        <p class="text">
+            We use <span class="model-style">GPT-<span class="text-gpt-green">4o</span>-mini</span> and <span
+                class="model-style">InternVL-<span class="text-gemini-blue">2.5</span>-38B</span>
+            to annotate our
+            dataset.
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span>-mini</span> generates
+            taxonomy-related labels, while <span class="model-style">InternVL-<span
+                    class="text-gemini-blue">2.5</span>-38B</span> performs image captioning
+            and keyword extraction.
+            We prompt <span class="model-style">InternVL-<span class="text-gemini-blue">2.5</span>-38B</span> to
+            summarize
+            each image into 36 JSON keys, capturing essential attributes
+            such
+            as image type (e.g., photograph or digital art), location, weather conditions, presence of people, and lists
+            of
+            objects in the image.
+            To identify posts unrelated to image editing (e.g., when users post an image seeking proof of authenticity
+            rather than requesting an edit), we instruct <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span>-mini</span> to output a binary
+            flag, <code>image_editing_relevant</code>, indicating whether the post pertains to image editing.
+        </p>
+
+        <h3>Extracting Subject and Action Verbs:</h3>
+        <p class="text">
+            We use a zero-shot prompting to extract actions from the request.
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span>-mini</span> is provided with a
+            list of valid actions, their descriptions,
+            the
+            input image, and the user-provided request. The prompt instructs the model to first examine the image,
+            then
+            rewrite the instruction in clear and simplified language to eliminate ambiguity, and finally identify
+            the
+            subjects of the edits along with the corresponding editing actions.
+        </p>
+
+        <h3>Mapping Subjects to WordNet:</h3>
+        <p class="text">
+            We map the extracted subjects from the previous stage to WordNet's synsets. Once the subjects are
+            identified, we
+            provide <span class="model-style">GPT-<span class="text-gpt-green">4o</span>-mini</span> with the
+            image, instruction, and subject, instructing
+            it to
+            select the closest WordNet synset based on the given context. Since the generated synset may not always be
+            valid, we perform a search within the WordNet lexical database using NLTK to find the closest matching
+            synset
+            and assign a final synset to the subject.
+        </p>
+        <p class="text">
+            We use <span class="model-style">o<span class="text-gpt-green">1</span>-pro</span> to summarize
+            WordNet
+            subjects
+            into higher-level semantic categories and organize them into five main and twelve subcategories. Since the
+            extracted WordNet synsets
+            from
+            the previous step vary in granularity, a reasoning model with long-context capabilities, such as <span
+                class="model-style">o<span class="text-gpt-green">1</span>-pro</span>, effectively groups these synsets
+            into structured categories. This
+            approach results in a more coherent and meaningful subject categories.
+        </p>
+
+        <h3>Assigning Creativity Levels:</h3>
+        <p class="text">
+            We use few-shot prompting to assign creativity levels. <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span>-mini</span> receives
+            the
+            original
+            image and request, along with examples annotated by creativity level, to classify the input accordingly.
+        </p>
+
+        <h2 id="sec:dataset_statistics">Dataset Statistics</h2>
+        <p class="text">
+            Our final dataset consists of <span id="datasetAllPostsFinaldataset">83k</span> posts and <span
+                id="datasetAllEditsFinaldataset">305k</span> edited images, categorized by creativity levels as 56% low,
+            28% medium, and 16% high. It includes 49,134 unique subjects, predominantly falling under the <em>People and
+                Related</em> category (53.5%). The primary action requested
+            predominantly falling under the <em>People and Related</em> category (53.5%). The primary action
+            requested
+            by
+            users is <span class="action-style">delete</span> (32.9%), typically involving the removal of
+            individuals
+            or
+            visual clutter to enhance aesthetics or professionalism.
+        </p>
+    </div>
+
+    <div class="container blog  extra-large gray" id="fig:ai_wins_and_failures">
+        <img src="assets/figures/dataset_samples_ai_win_loses.png" id="dataset_samples_ai_win_loses">
+        <p class="caption">
+
+        </p>
+    </div>
+
+
+
+    <div class="container blog main">
+        <h1 id="sec:exp_setup">Experiment Setup</h1>
+        <p class="text">
+            We conduct a series of studies comparing AI-generated edits with human edits to understand human preferences
+            and to determine whether automated metrics can serve as reliable proxies for these preferences.
+        </p>
+
+        <h2>AI editors:</h2>
+        <p class="text">
+            We process each request using three generalist SOTA image editing tools: <span
+                class="model-style">SeedEdit</span>, <span class="model-style">Gemini-<span
+                    class="text-gemini-blue">2.0</span>-Flash</span>, and
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span> .<sup><a href="#fn1_exp"
+                    id="fnref1_exp" title="Footnote">1</a></sup>
+            For each request, we generate two images using both the original instruction (OI) provided by the user and a
+            simplified instruction (SI) generated by <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span>-mini</span>. Since user-written
+            instructions often include unnecessary details, we use <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span>-mini</span> to refine
+            them, focusing solely on the core image editing task.
+        </p>
+        <p class="text">
+            Additionally, for each request, we generate three AI-based image edits using
+            <strong>46</strong> off-the-shelf image editing models hosted on Hugging Face Spaces.
+        </p>
+
+        <h2>PSR-328 dataset:</h2>
+        <p class="text">
+            Via stratified sampling, we select a random PSR subset that has almost the same amount of images in three
+            levels of creativity groups (114 low, 101 medium, and 113 high).
+            On average, each request is edited by an average of <strong>five</strong> Reddit human editors, resulting in
+            a total of 1,644 human edits.
+            We also generate 7 different AI edits per request.
+            In total, our human study has 10,405 unique 4-tuples (source image, request, AI edit, human edit) for
+            evaluation&mdash;substantially larger than prior studies,
+            while keeping the human annotation effort manageable.
+        </p>
+
+        <h2>Human study:</h2>
+        <p class="text">
+            We conduct a comparative evaluation study to assess whether AI-generated edits or those created by Reddit
+            users better satisfy original image editing requests. To ensure unbiased evaluation, we present randomly
+            paired AI and human edits in a blind setting to human raters who then vote on which edit best fulfills the
+            given request.
+        </p>
+
+        <h2>Automated metrics and VLM judges:</h2>
+        <p class="text">
+            We use two automated evaluation methods to complement our human study: LAION <em>Aesthetic Score</em>
+            and <em>VLM-as-a-Judge</em> . The Aesthetic Score quantifies visual appeal based on
+            large-scale human preference data, while VLM-as-a-Judge leverages VLMs to provide evaluative feedback on
+            images, with reasoning capabilities that articulate specific visual qualities and explain judgments.
+            Both metrics serve as proxies for human judgment, enabling scalable assessment of AI-generated and
+            human-edited images.
+            We use LAION's Aesthetic Score Predictor for calculating aesthetic metrics, and
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span>, <span
+                class="model-style">o<span class="text-gpt-green">1</span></span>, and <span
+                class="model-style">Gemini-<span class="text-gemini-blue">2.0</span>-Flash-Thinking</span>
+            as the VLM models for judgment tasks.
+        </p>
+        <div class="footnotes">
+            <hr>
+            <ol>
+                <li id="fn1_exp">Due to access constraints and model safeguards, some edits from <span
+                        class="model-style">GPT-<span class="text-gpt-green">4o</span></span>, <span
+                        class="model-style">SeedEdit</span>, and <span class="model-style">Gemini-<span
+                            class="text-gemini-blue">2.0</span>-Flash</span> are not available. <a href="#fnref1_exp"
+                        title="Return to text">&#8617;</a></li>
+            </ol>
+        </div>
+    </div>
+
+    <div class="container blog main">
+        <h1>Results</h1>
+    </div>
+
+    <div class="container blog main">
+        <h2> Results Browser</h2>
+        <p class="text">
+            We provide a Hugging Face 🤗 space for the results of our study.
+            You can filter the results by creativity level, action verb, and model.
+        </p>
+
+        <a href="https://huggingface.co/spaces/PSRDataset/PSR-Battle-Results" target="_blank">
+            <img src="assets/figures/preview.png" style="width: 80%;">
+        </a>
+
+    </div>
+
+
+
+    <div class="container blog  extra-large gray">
+        <img src="assets/figures/main_table.svg" id="main_table">
+        <p class="caption">
+
+        </p>
+    </div>
+
+
+    <div class="container blog main">
+        <h1>Human Edits Are Strongly Preferred by Human Raters</h1>
+        <p class="text">
+            We collect a total of 4,359 human votes from 122 different users, and <a href="#main_table">Table. 3</a>
+            summarizes the
+            preferences based on the collected votes.
+            Human raters prefer human edits in 66.0% of cases, while AI edits are preferred in only 25.8% of cases.
+        </p>
+        <p class="text">
+            Within the <span style="background-color: rgb(217, 235, 255); padding: 1px 3px; border-radius: 3px;">model
+                groups</span>, the preference for human edits remains consistent across different models, with
+            preference rates ranging from 53.6% to 73.2% in favor of human edits. <span
+                class="model-style">SeedEdit</span> achieves the
+            highest overall preference win rate at 37.8%, followed by <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span></span>, with a win rate of 32.8%.
+        </p>
+        <p class="text">
+            Breaking down the ratings by creativity still shows a preference for human edits across all three creativity
+            groups. Although human edits are consistently preferred, the gap between human and AI performance is smaller
+            for <span
+                style="background-color: rgb(210, 255, 210); padding: 1px 3px; border-radius: 3px;">high-creativity</span>
+            requests (60.9% vs. 30.7%) compared to <span
+                style="background-color: rgb(255, 255, 204); padding: 1px 3px; border-radius: 3px;">medium-creativity</span>
+            (67.6% vs. 25.3%) and <span
+                style="background-color: rgb(255, 239, 213); padding: 1px 3px; border-radius: 3px;">low-creativity</span>
+            requests
+            (70.1% vs. 21.1%).
+            We hypothesize that this is because, in high-creativity scenarios, human evaluators tend to prioritize
+            originality over detail—unlike in low- or medium-creativity requests.
+        </p>
+        <p class="text">
+            Analyzing model performance across image editing action verbs shows models
+            struggle with actions like <span class="action-style">crop</span> and <span
+                class="action-style">zoom</span>, yet perform competitively with humans on tasks
+            such as <span class="action-style">apply</span> and <span class="action-style">merge</span>.
+        </p>
+        <p class="text">
+            Furthermore, we conduct a qualitative analysis to identify common
+            patterns in cases where AI edits either succeed or fail. AI-generated edits typically outperform human
+            alternatives due to their higher accuracy in reflecting user instructions. This precision in following the
+            original request accounts for the majority (72%) of AI wins. In contrast, AI edits often lose because they
+            misunderstand or misinterpret user requests, with comprehension errors representing the most common cause
+            (43%). Additionally, AI systems frequently introduce unintended changes or artifacts—most notably,
+            distortions of facial identity—which further diminish their reliability.
+        </p>
+        <p class="text">
+            A major issue with the current generation of AI image editing models is how they struggle to preserve the
+            identity of people in an image. This problem is more pronounced in <span class="model-style">GPT-<span
+                    class="text-gpt-green">4o</span></span>
+            , as shown in <a href="#gpt_facial_fails">Figure. 3</a>. In this example, using <span
+                class="model-style">GPT-<span class="text-gpt-green">4o</span></span> to make successive edits to an
+            input image of a person results in a final image that loses its similarity to the original person.
+        </p>
+    </div>
+
+
+
+
+    <div class="container blog  extra-large gray">
+        <img src="assets/figures/shirtcolor_gpt.png" id="gpt_facial_fails">
+        <p class="caption">
+            <strong>Figure. 3:</strong> can significantly alter both a person's identity and the overall image quality
+            through
+            iterative
+            image-editing
+            requests.
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span> was repeatedly instructed to
+            modify the shirt color, with each step's output serving as the input for
+            the next
+            iteration.
+            Over iterations, facial identity shifted considerably from the original person.
+        </p>
+    </div>
+
+
+    <div class="container blog main">
+        <h1>VLM-as-a-Judge Is a Poor Proxy for Human Preferences</h1>
+        <p class="text">
+            Automated feedback from a judge model can be used to significantly boost a student model's performance
+            through processes like reinforcement through AI feedback (RLAIF). To determine the
+            accuracy of VLM-as-a-Judge feedback, we collect over 10,300 ratings from three separate VLMs acting as
+            judges between human edits and AI edits.
+        </p>
+        <p class="text">
+            The results highlight a clear contrast in overall preferences between humans and VLMs, showing that
+            VLM-as-a-Judge is a poor proxy for human preferences. While humans strongly prefer human-generated edits (as
+            discussed in the section "Human Edits Are Strongly Preferred by Human Raters"), all three VLMs exhibit mixed
+            preferences, splitting their selections approximately evenly (around 50%) between human and AI edits.
+            Additionally, Cohen's &kappa; scores further confirm weak agreement between human
+            judgments and VLM assessments, with <span class="model-style">o<span class="text-gpt-green">1</span></span>
+            achieving the highest agreement score of &kappa; = 0.22, which nonetheless remains low.
+        </p>
+        <p class="text">
+            When examining VLM ratings by individual <span
+                style="background-color: rgb(217, 235, 255); padding: 1px 3px; border-radius: 3px;">model
+                groups</span>,
+            we observe
+            a clear preference among VLMs for edits produced by <span class="model-style">SeedEdit</span> and <span
+                class="model-style">GPT-<span class="text-gpt-green">4o</span></span>.
+            Notably, <span class="model-style">o<span class="text-gpt-green">1</span></span> selects edits from <span
+                class="model-style">GPT-<span class="text-gpt-green">4o</span></span> 83.9% of the time. Conversely, for
+            edits generated by <span class="model-style">Gemini-<span class="text-gemini-blue">2.0</span>-Flash</span>
+            or
+            <span class="model-style">Hugging Face models</span>, VLMs generally favor human-made edits. Despite this,
+            agreement with human judgments remains relatively low, with Cohen's &kappa; ranging from 0.14 to 0.25, which
+            is near random in some cases.
+        </p>
+        <p class="text">
+            We analyze a subset of judges' ratings to better understand why their assessments differ from human
+            judgments. Although VLMs can provide detailed verbal feedback, they often remain <em>blind</em> to critical
+            details in images and may fail to accurately capture or articulate all differences between image pairs.
+            Additionally, VLMs occasionally overlook significant aspects, such as changes in characters' identities, and
+            sometimes even hallucinate nonexistent elements. These issues highlight ongoing challenges in effectively
+            leveraging VLMs as reliable judges.
+        </p>
+    </div>
+
+    <div class="container blog main">
+        <h1>AI Models Tend To Improve Aesthetics Even When Not Requested</h1>
+        <p class="text">
+            A common pattern among AI models is their tendency to enhance the aesthetic quality of images, even without
+            explicit instructions. For instance, they often apply extra touch-ups to human faces, making the skin appear
+            smoother and more polished. Similarly, the facial features of pets are improved, and even damaged areas,
+            such as eyes, are restored—even when such changes were never requested.
+            For example, when instructed simply to remove extraneous elements (<a href="#aesthetics_changes">Figure
+                4-a</a>) or
+            image
+            background (<a href="#aesthetics_changes">Figure 4b</a>), <span class="model-style">SeedEdit</span> and
+            <span class="model-style">GPT-<span class="text-gpt-green">4o</span></span> nonetheless
+            enhance the dog's overall facial
+            features beyond the explicit instructions provided by the user.
+        </p>
+        <p class="text">
+            We report the LAION aesthetic scores for the images in PSR-328 and summarize the results in
+            (<a href="#aesthetics_changes">Figure
+                4-c</a>). The distribution of aesthetic scores confirms that AI models tend to increase
+            overall image aesthetics. On average, AI-edited images have higher scores ($\mu = 5.56$) compared to
+            human-edited images ($\mu = 5.18$) and the original source images ($\mu = 5.32$).
+        </p>
+        <p class="text">
+            Moreover, we compare changes in aesthetic ratings from our human study to examine potential correlations
+            between AI performance (winning or losing) and human preference. A detailed breakdown of human preferences
+            based on variations in aesthetic scores is presented in (<a href="#aesthetics_changes">Figure
+                4-d</a>).
+        </p>
+        <p class="text">
+            We observe that AI-generated edits typically achieve higher aesthetic scores than human edits, regardless of
+            comparison outcome. AI edits become increasingly favored when their aesthetic scores surpass those of human
+            edits. Nonetheless, human raters generally prefer
+            human-generated edits overall, indicating that the LAION aesthetic score alone does not fully align with
+            human preferences.
+        </p>
+    </div>
+
+    <div class="container blog  extra-large gray">
+        <img src="assets/figures/aesthetics_changes.svg" id="aesthetics_changes">
+    </div>
+
+    <div class="container blog main">
+        <h1>AI Models Can Successfully Handle One-Third of All Real-World Requests</h1>
+        <p class="text">
+            Different image editing requests necessitate varying types and levels of editing depending on the subject
+            and required action, ranging from subtle, precise modifications (e.g., ``remove the
+            quote'' (<a href="#fig:ai_wins_and_failures">Figure 2-a</a>)) to complete transformations (e.g.,
+            ``cartoonize this image''
+            (<a href="#fig:ai_wins_and_failures">Figure 2-f</a>). While our results show human edits are generally
+            preferred, AI models
+            have shown they can handle a subset of these diverse requests at a competitive rate with human editors. This
+            capability raises a question: what is the overall percentage of requests that AI models can already handle?
+        </p>
+        <p class="text">
+            We estimate the overall percentage of real-world image editing requests that AI models can effectively
+            handle by calculating a weighted average based on the distribution of action verbs in our
+            dataset. Specifically, we define the effectiveness of AI as the percentage
+            of tasks where AI-generated edits either outperform (win) or perform competitively (tie) compared to human
+            edits. For each verb category, we multiply the combined AI win and tie rates by
+            the proportion that each verb contributes to the overall dataset:
+            $\sum_{v=1}^{v} D_vAI_v * 100 = 33.35% $
+            where $D_v$ represents the proportion of dataset requests associated with action verb $v$, and $AI_v$
+            denotes the combined percentage of AI wins and ties for edits corresponding to verb $v$. Based on this
+            calculation, we estimate current AI tools effectively handle about one-third of real-world image editing
+            requests.
+        </p>
+    </div>
+
+
+    <div class="container blog main">
+        <h1>Conclusion</h1>
+        <p class="text">
+            In this study, we compared generative AI edits with human edits to understand the gap between the current
+            capabilities of AI models and actual user needs.
+            Current AI tools excel in specific tasks such as object removal and outpainting, effectively extending
+            images and filling in missing details. However,
+            in real-world scenarios, current generation models can adequately fulfill only about one-third of user
+            editing requests. Their main constraints stem from their tendency to introduce unintended modifications
+            beyond the targeted editing region and inadvertently altering essential characteristics, such as the
+            identity of individuals.
+        </p>
+        <p class="text">
+            Our dataset annotation and taxonomy generation rely on language models, potentially introducing biases and
+            inaccuracies. Additionally, certain AI image editing models were inaccessible during our evaluation, leading
+            to their absence from our human analysis.
+        </p>
+    </div>
+
+
+    <!-- 
+    <div class="container blog main">
+        <h1>Citation</h1>
+        <p class="text">
+            Dictumst eu himenaeos malesuada nisi eros auctor id suspendisse. Ipsum parturient est vitae proin maecenas.
+            Nulla mollis vivamus cras nam dapibus consectetur. Id efficitur ac ultricies ornare at litora. Vestibulum
+            nibh cursus eu gravida vivamus sem vulputate. Montes nisi ipsum urna vitae semper suscipit.
+        </p>
+        <pre><code class="plaintext">@article{doe2048agi,
+    title={Artificial General Intelligence},
+    author={Doe John},
+    journal={nature},
+    year={2048}
+}</code></pre>
+    </div> -->
+
+    <!-- Footer Page -->
+    <footer>
+        <div class="container">
+            <p>
+                This website is built on the <a href="https://shikun.io/projects/clarity">Clarity Template</a>, designed
+                by <a href="https://shikun.io/">Shikun Liu</a>.
+            </p>
+        </div>
+    </footer>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="clarity/clarity.js"></script>
+    <script src="assets/scripts/main.js"></script>
+
+</html>
+</body>
